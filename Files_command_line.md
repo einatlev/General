@@ -9,19 +9,19 @@ Select only specific columns to print out of a CSV file (in case we want many fi
 
 cat myfile.csv | awk -F, 'BEGIN{ORS=""; split("3 4 9 12 123 ”, arr," ")}{for (i in arr) print $i" & " ; print "\\\\ \n"}'
 
-#%Convert a list of points from a text file to a gMsh .geo file with points:
+##Convert a list of points from a text file to a gMsh .geo file with points:
 cat origfile.txt | awk '{print "Point("NR") = {0, "$1", "$2", cl1}; "}' > newfile.geo
 
-#%In case of using an XYZ file and we need the last field, we need to use 
+##In case of using an XYZ file and we need the last field, we need to use 
 the AWK commands of SPLIT and SUBSTR in order to avoid getting the ^M symbol 
 from the end of the line. For example:
 
 cat channel_grid.xyz | awk '{split ($0,arr); print "Point("NR") = {"arr[1]", "arr[2]", " substr(arr[3],1,9)", cl1};" }' > Channel.geo
 
-#%Convert a DOS text file to Unix/Mac from Mac command line:
+##Convert a DOS text file to Unix/Mac from Mac command line:
 awk '{if(NR==1)sub(/^\xef\xbb\xbf/,"");print}' INFILE > OUTFILE
 
-#%Mapping a network directory to a local one:
+##Mapping a network directory to a local one:
 sshfs einatlev@lava.ldeo.columbia.edu://local/data/lava/einatlev/Lakes ~/work/projects/Velocimetry/videos/Lakes/remote/  -oauto_cache,reconnect,defer_permissions,negative_vncache,volname=lava-sshfs,cipher=blowfish
 
 #String replacement using SED:
@@ -68,18 +68,18 @@ split -l linenumber filename
 (also has other options, e.g. based on file size in bytes)
 
 
-#%Batch conversion of image formats in Mac:
-#%For example, from ,png to .jpg:
+##Batch conversion of image formats in Mac:
+##For example, from ,png to .jpg:
 
 for i in *.png; do sips -s format jpeg $i --out Converted/$i.jpg;done
-#%%%%%%%%%%%%%%%
-#%Batch image cropping in Mac:
-#%crop dimension1xdimension2+start pixel x + start pixel y:
+##%%%%%%%%%%%%%%
+##Batch image cropping in Mac:
+##crop dimension1xdimension2+start pixel x + start pixel y:
 
 for i in *jpg; do convert $i -crop 130x140+250+180 cropped/$i; done
 
-#%combining PDFs form command line on Mac, using a built-in automator script:
-#% first time use: 
+##combining PDFs form command line on Mac, using a built-in automator script:
+## first time use: 
 %cd /usr/local/bin
 %sudo ln "/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" PDFconcat
 
